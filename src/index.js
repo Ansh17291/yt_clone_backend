@@ -1,6 +1,7 @@
 // require("dotenv").config({path: "./env"}); this works perfectly fine but this is not a esmodule syntax therefore just to maintain the consistency we can use esmodule ssyntax as well let's see how
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
+import { app } from "./app.js";
 
 dotenv.config({
     path: './env'
@@ -8,7 +9,20 @@ dotenv.config({
 
 
 
-connectDB();
+connectDB()
+.then(() =>{
+    app.on("error", (error) =>{
+        console.log(`Some Error occured : `, error );
+        throw new Error("Something went wrong on the server");
+    })
+    app.listen(process.env.PORT || 8000, () =>{
+        console.log(`Server listening on port : `, process.env.PORT || 8000);
+    });
+}
+)
+.catch((err) => {
+    console.log(`Failed in connecting the backend`);
+})
 
 // Rest of the server code goes here ...
 
