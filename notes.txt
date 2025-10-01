@@ -1,0 +1,48 @@
+File Structure for backend
+src: 
+    index (db connect)
+    app (config, cookie, )
+    constanst (enums, db-name)
+db:
+models :
+controllers :
+Routes: 
+middlewares: 
+utils :
+more(optional)
+
+
+---------- DB_ modeling ----------------------------
+
+We first always start with data modeling , how the db should look like then move ahead
+
+
+1. creat a file named .. user.model.js where we store the db model .. hence .model 
+2. install mongoose and go ahead to write the models 
+3. mostly consider every attribute of the database as an object 
+4. When we want to reference a model to another we need 2 things .. 1. type and 2. ref 
+e.g. type : mongoose.Schema.Types.ObjectId,
+     ref : "Users"
+
+
+There is one more type named enum :[" " , " " ,  " "] .. here the attribute can take any of the one value form the enum array 
+
+------------------ connectDB ----------------------------
+while connecting to DB always remember one thing is .. "DB is always in another continent" therefore use async and await 
+
+Before node 20 version there was an issue in while using .env while therefore we had this module named "dotenv" using that we can load all the env variables easily .. there are 2 methods to use that ... if using version 20 or higher skip ..
+1. using normal syntax - require("dotenv").config({path: "./env"}); 
+fine but if we are following import wala syntax then consistency issue . 
+
+2. Using that import wala syntax .. import dotenv from "dotenv"
+dotenv.config({
+    path : "./env"
+})
+
+after this we need to configure some run commands. 
+1. goto package.json then in srcipts do 
+"srcipts" :{
+    "dev" : "nodemon -r dotenv/config experimental-json-modules src/index.js
+}
+
+DONE;

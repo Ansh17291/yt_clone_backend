@@ -1,0 +1,12 @@
+We first always start with data modeling , how the db should look like then move ahead
+
+
+1. creat a file named .. user.model.js where we store the db model .. hence .model 
+2. install mongoose and go ahead to write the models 
+3. mostly consider every attribute of the database as an object 
+4. When we want to reference a model to another we need 2 things .. 1. type and 2. ref 
+e.g. type : mongoose.Schema.Types.ObjectId,
+     ref : "Users"
+
+
+There is one more type named enum :[" " , " " ,  " "] .. here the attribute can take any of the one value form the enum array 
