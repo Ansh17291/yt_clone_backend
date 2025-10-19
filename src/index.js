@@ -21,7 +21,7 @@ connectDB()
 }
 )
 .catch((err) => {
-    console.log(`Failed in connecting the backend`);
+    console.log(`Failed in connecting the backend : ${err}`);
 })
 
 // Rest of the server code goes here ...
