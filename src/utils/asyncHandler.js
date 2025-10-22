@@ -2,7 +2,7 @@
 // So, instead of writing try catch block in every async function, we can just wrap that function with this asyncHandler and it will handle the errors for us
 
 const asyncHandler = (requesHandler) => {
-    (req, res, next) =>{
+    return (req, res, next) =>{
         Promise.resolve(requesHandler(req, res, next)).catch((err)=>next(err));
     }
 }

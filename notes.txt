@@ -50,3 +50,75 @@ DONE;
 
 
 app.use for middleware or configuration settings
+
+
+_________________________________________________________________________________________________________________________
+now we have created three files in the src directory 
+
+1. app.js -> initializes the express for backend code, we import important stuff like 
+    1. express - for backend 
+        some methods that we use here are :
+        1. express.json ---  is used for the get the parsed data as json in the body 
+        2. express.urlencoded --- this is used to parse the url's that are given , like when we search somehthing different browsers have different excryption for thier url's therefore to make it standard we have this 
+        3. express.static("public") --- used to make static files easier to access to the users 
+        4. app.use(cookieParser()) --- ofc configure the cookieParser when app is initialized.
+    2. cors - cross origin so backend can be connected to frontend 
+    3. cookieParser .... just in case we use cookies 
+
+
+2. index.js 
+
+this is the entry point of the backend , here we make use of the app that we created above not the one from the express , becz we already configured that app in the app.js file so we use that , 
+here we do basic connection of backend , listen for errors etc
+
+
+3. constansts.js 
+
+a file that has basic constants names like db_name or port number or anything that we use frequently and we can store it in constants we when it is changes it happens automatically everywheere and we need not need to do it manually . 
+_________________________________________________________________________________________________________________________
+
+src/db/index.js 
+
+here we connect to the backend 
+
+_________________________________________________________________________________________________________________________
+
+src/utils
+
+1. ApiError.js 
+here we just make a standard error file which we will use when we want to give some error 
+
+2. ApiResponse.js :
+here we just make a standard response file so that we don't need to look for what we need to send again and again so we just make a standard class to send things 
+
+3. AsyncHandler.js :
+this is a very useful file , basically it just helps us avoid writing try catch again and again (just see the down function in the asyncHandler.js file .. the try catch one). so what does it do it
+suppose we have this like a route 
+app.get("/users", async(req, res)=>{
+    const users = await User.find();
+    res.json(users);
+})
+
+here await User.find() is async fuc so it can throw error or time out therefore we wrap this in try and catch like this 
+
+app.get("/users", async(req, res)=>{
+    try{
+        const users = await Users.find();
+
+    }catch(err){
+        res.json({
+            error;
+        })
+        next(err) // pass to error handler. 
+
+    }
+})
+
+writing this try catch is annoying again and again therefore we have this asyncHandler 
+
+app.get("/users", asyncHandler(async(req, res)=>{
+    const users = await User.find();
+    res.json(users);
+}))
+
+here we not only handle the errors is they come but we reduce the number of line we write and make it cleaner , and ofc also avoid that try catch from being written again and again !.
