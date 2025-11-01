@@ -122,3 +122,54 @@ app.get("/users", asyncHandler(async(req, res)=>{
 }))
 
 here we not only handle the errors is they come but we reduce the number of line we write and make it cleaner , and ofc also avoid that try catch from being written again and again !.
+
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+now we made some models : user.model.js and video.model.js
+
+in user.model.js we not only designed db but also hashed the password before storing it for that we use :
+
+userSchema.pre("save", async function (next) {
+    // the below if condition is written so that only when password is changed then only bcrypt is used otherwise while saving anything in  user.model would make password hash again and again, there hash if only when password is modified !
+    if(this.isModified("password")){
+        this.password = bcrypt.hash(this.password, 10);
+        next(); // next ?? yeah yeah next beczz this is a middleware of mongoose 
+    }
+})
+
+this is a middleware 
+
+_________________________________________________________________________________________________________________________
+
+in the same file we add a method , to check if the password is correct or not !
+
+userSchema.methods.isPasswordCorrect = async function (password){
+   return await  bcrypt.compare(password, this.password);
+}
+
+_________________________________________________________________________________________________________________________
+
+in the same file we make these two functions where we make token's that can be used for session management 
+generateAccessToken is used for small interval 
+
+userSchema.methods.generateAccessToken = function() {
+    return jwt.sign({
+        _id : this._id, 
+        userName : this.userName,
+        email: this.email, 
+        password : this.password
+    }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: process.env.ACCESS_TOKEN_EXPIRY})
+}
+
+
+this generateRefreshToken is made and stored in db for cookie management 
+
+userSchema.methods.generateRefreshToken = function () {
+    return jwt.sign({
+        _id : this._id, 
+        userName: this.userName,
+        email: this.email,
+        password: this.password
+    }, process.env.REFRESH_TOKEN_SECRET, {expiresIn : process.env.REFRESH_TOKEN_EXPIRY})
+}
