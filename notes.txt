@@ -173,3 +173,12 @@ userSchema.methods.generateRefreshToken = function () {
         password: this.password
     }, process.env.REFRESH_TOKEN_SECRET, {expiresIn : process.env.REFRESH_TOKEN_EXPIRY})
 }
+
+_________________________________________________________________________________________________________________________
+
+we wrote utils/cloudinary.js 
+
+basically read the docs and wrote the code, just instead of using it in a controller we made it a utlility function 
+if u want to use it anywhere u can , easily
+
+then we wrote a multer.middleware.js where we first store the file in the public/temp and then send that file to cloudinary and then delete (unlink in words of fs ) that file. 
