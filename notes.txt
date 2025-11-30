@@ -181,4 +181,36 @@ we wrote utils/cloudinary.js
 basically read the docs and wrote the code, just instead of using it in a controller we made it a utlility function 
 if u want to use it anywhere u can , easily
 
-then we wrote a multer.middleware.js where we first store the file in the public/temp and then send that file to cloudinary and then delete (unlink in words of fs ) that file. 
+then we wrote a multer.middleware.js where we first store the file in the public/temp and then send that file to cloudinary and then delete (unlink in words of fs ) that file.
+
+
+_________________________________________________________________________________________________________________________
+
+we wrote a controller and a route for register .. just made the route no logic is written for now 
+
+1. we made controller named registerUser which is covered inside asyncHandler function (remember asyncHandler is used for handling try catch and async requests either by using try catch or promises) , controller is where the logic is written . 
+
+2. then we made a route , (user.routes.js) here we will just declare the routes not the logic 
+    const router = Router 
+    router.route("/register").post(registerUser)
+    export default router;
+
+3. then in the app.js file we will 
+    import userRouter from user.routes.js
+    app.use("/api/users", userRouter)
+
+now i'll explain the whole process , so in app.js we have app.use("/api/users", userRouter) here userRouter comes from user.routes.js , its like saying all the routes that have the url of the type /api/users will be handled by the userRouter 
+then in userRouter we declare the routes , like router.route("/register").post(registerUser), here registerUser is a controller that has the logic for handling the register of users , 
+so the final url to send request becomes , "https://localhost:8000/api/users/register"
+
+things to keep in mind , 
+1. in app u define the declare the prefix for the route , 
+    import userRouter from "./routes/user.routes.js"
+    app.use("/api/users", userRouter)
+    
+2. In user.routes.js we declare the routes for only users 
+    const router = Router();
+    // https://localhost:8000/api/users/register
+    router.route("/register").post(registerUser)
+
+3. then in user.controller.js we write the logic for that particular route , like above /register is handled by the function registerUser which is written as a controller in usre.controller.js which has the logic for registeration 
