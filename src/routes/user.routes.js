@@ -12,7 +12,11 @@ router.route("/register").post(
             maxCount: 1
         },
         {
-            name: "coverImage", // field name from frontend, so check there
+            name: "coverImages", // field name from frontend, so check there
+            maxCount: 5
+        },
+        {
+            name: "coverImage", // also accept singular field if frontend uses it
             maxCount: 5
         }
     ]),
