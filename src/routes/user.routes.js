@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, refreshAcessToken, registerUser } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middlware.js";
+import { verifyJWT } from './../middlewares/auth.middleware.js';
 
 
 const router = Router();
@@ -22,5 +23,12 @@ router.route("/register").post(
     ]),
     registerUser
 );
+
+router.route("/login").post(loginUser)
+
+// SECURE ROUTES
+router.route("/logout").post(verifyJWT , logoutUser) // here verfifyJWT is a middleware !!
+
+router.route("/refreshToken").post(refreshAcessToken)    
 
 export default router;

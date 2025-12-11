@@ -214,3 +214,12 @@ things to keep in mind ,
     router.route("/register").post(registerUser)
 
 3. then in user.controller.js we write the logic for that particular route , like above /register is handled by the function registerUser which is written as a controller in usre.controller.js which has the logic for registeration 
+
+_________________________________________________________________________________________________________________________
+
+Added just one line fs.unlinkeSync(lcoalFilePath) in cloudinary.js , just to remove the local file when the file has been uploaded on the cloudinary server. 
+
+_________________________________________________________________________________________________________________________
+
+now we have created a login route, logout route and refresh token route , 
+for encrypting token use user._id , so that when we decode it u can get user._id back so that we can access the entire object !.

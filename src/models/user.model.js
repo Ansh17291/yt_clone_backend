@@ -55,8 +55,8 @@ userSchema.pre("save", async function (next) {
     // the below if condition is written so that only when password is changed then only bcrypt is used otherwise while saving anything in  user.model would make password hash again and again, there hash if only when password is modified !
     if(this.isModified("password")){
         this.password = await bcrypt.hash(this.password, 10);
-        next(); // next ?? yeah yeah next beczz this is a middleware of mongoose 
     }
+    next(); // next ?? yeah yeah next beczz this is a middleware of mongoose 
 })
 
 userSchema.methods.isPasswordCorrect = async function (password){
