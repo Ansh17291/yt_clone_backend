@@ -28,6 +28,7 @@ e.g. type : mongoose.Schema.Types.ObjectId,
 There is one more type named enum :[" " , " " ,  " "] .. here the attribute can take any of the one value form the enum array 
 
 ------------------ connectDB ----------------------------
+
 while connecting to DB always remember one thing is .. "DB is always in another continent" therefore use async and await 
 
 Before node 20 version there was an issue in while using .env while therefore we had this module named "dotenv" using that we can load all the env variables easily .. there are 2 methods to use that ... if using version 20 or higher skip ..
@@ -53,6 +54,7 @@ app.use for middleware or configuration settings
 
 
 _________________________________________________________________________________________________________________________
+
 now we have created three files in the src directory 
 
 1. app.js -> initializes the express for backend code, we import important stuff like 
@@ -223,3 +225,7 @@ ________________________________________________________________________________
 
 now we have created a login route, logout route and refresh token route , 
 for encrypting token use user._id , so that when we decode it u can get user._id back so that we can access the entire object !.
+
+_________________________________________________________________________________________________________________________
+
+
