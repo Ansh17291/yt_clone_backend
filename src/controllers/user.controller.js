@@ -187,6 +187,7 @@ const logoutUser = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, "User logged out successfully !",{}))
 })
 
+
 const refreshAcessToken = asyncHandler(async (req, res) =>{
     try {
         const incomingRefreshToken  = req.cookies.refreshToken || req.body.refreshToken;  
@@ -229,6 +230,7 @@ const refreshAcessToken = asyncHandler(async (req, res) =>{
     }
 })
 
+
 const changeCurrentPassword = asyncHandler(async(req, res)=>{
     // get user id from req.user
     // get old password and new password from req.body
@@ -255,11 +257,13 @@ const changeCurrentPassword = asyncHandler(async(req, res)=>{
 
 })
 
+
 const getCurrentUser = asyncHandler(async (req, res)=>{
     return res
     .status(200)
     .json(new ApiResponse(200, "Current user fetched successfully", req.user));
 })
+
 
 const   updateAccountDetails = asyncHandler(async(req, res)=>{
     const {fullName, email} = req.body;
@@ -283,6 +287,7 @@ const   updateAccountDetails = asyncHandler(async(req, res)=>{
     .status(200)
     .json(new ApiResponse(200, "User details updated successfully", updatedUser));
 })
+
 
 const updateUserAvatar = asyncHandler(async (req, res) =>{
     // get user id from req.user
@@ -318,6 +323,7 @@ const updateUserAvatar = asyncHandler(async (req, res) =>{
 
 })
 
+
 const updateCoverImages = asyncHandler(async(req, res) =>{
     const localCoverImagePaths = req.files?.coverImages?.map(file => file.path) || [];
     if(localCoverImagePaths.length === 0){
@@ -344,6 +350,8 @@ const updateCoverImages = asyncHandler(async(req, res) =>{
     .status(200)
     .json(new ApiResponse(200, "User cover images updated successfully", user));
 })
+
+
 export {
     registerUser,
     loginUser,
